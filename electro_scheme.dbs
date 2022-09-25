@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="electro" id="Project-1ff9" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="electro" >
+		<table name="admins" prior="entity" >
+			<column name="id" type="INT" jt="4" />
+			<column name="admin_id" type="INT" jt="4" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="email" type="VARCHAR" length="150" jt="12" />
+			<column name="phone_number" type="BIGINT" jt="-5" />
+			<column name="role" type="ENUM" jt="12" >
+				<defo><![CDATA['admin']]></defo>
+				<enumeration><![CDATA['admin', 'super_admin', 'guro']]></enumeration>
+			</column>
+		</table>
+		<table name="carts" prior="cart" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="cart_id" type="INT" jt="4" mandatory="y" />
+			<column name="user_id" type="INT" jt="4" />
+			<column name="product_id" type="INT" jt="4" />
+			<column name="cart_status" type="ENUM" length="1" jt="12" >
+				<defo><![CDATA['pending']]></defo>
+				<enumeration><![CDATA['pending', 'approved', 'canceled', 'fiished']]></enumeration>
+			</column>
+			<index name="pk_cart" unique="PRIMARY_KEY" >
+				<column name="cart_id" />
+			</index>
+			<fk name="fk_carts_products" virtual="y" to_schema="electro.INSTANCE" to_table="products" type="Identifying" >
+				<fk_column name="product_id" pk="id" />
+			</fk>
+			<fk name="fk_carts_users" virtual="y" to_schema="electro.INSTANCE" to_table="users" type="Identifying" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="categories" prior="entity" >
+			<column name="id" type="INT" length="100" jt="4" />
+			<column name="category_id" type="VARCHAR" length="64" jt="12" mandatory="y" />
+			<column name="category_name" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_categories" unique="PRIMARY_KEY" >
+				<column name="category_id" />
+			</index>
+		</table>
+		<table name="images" prior="entity" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="image_id" type="VARCHAR" length="64" jt="12" mandatory="y" />
+			<column name="image_name" type="VARCHAR" length="100" jt="12" />
+			<column name="product_id" type="INT" jt="4" />
+			<index name="pk_images" unique="PRIMARY_KEY" >
+				<column name="image_id" />
+			</index>
+			<fk name="fk_images_products" virtual="y" to_schema="electro.INSTANCE" to_table="products" type="Identifying" >
+				<fk_column name="product_id" pk="id" />
+			</fk>
+		</table>
+		<table name="orders" prior="entity" >
+			<column name="id" type="INT" jt="4" />
+			<column name="order_id" type="INT" jt="4" mandatory="y" />
+			<column name="cart_id" type="INT" jt="4" />
+			<column name="order_status" prior="status" type="ENUM" jt="12" >
+				<defo><![CDATA['canceled']]></defo>
+				<enumeration><![CDATA['pending', 'approved', 'canceled']]></enumeration>
+			</column>
+			<index name="pk_orders" unique="PRIMARY_KEY" >
+				<column name="order_id" />
+			</index>
+			<fk name="fk_orders_carts" virtual="y" to_schema="electro.INSTANCE" to_table="carts" type="Identifying" >
+				<fk_column name="cart_id" pk="id" />
+			</fk>
+		</table>
+		<table name="products" prior="entity" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="product_id" type="VARCHAR" length="64" jt="12" mandatory="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="description" type="TEXT" jt="-1" />
+			<column name="price" type="DECIMAL" length="10" decimal="3" jt="3" />
+			<column name="price_after_sale" type="DECIMAL" length="10" decimal="3" jt="3" />
+			<column name="qty" type="INT" jt="4" />
+			<column name="per" type="INT" jt="4" />
+			<column name="category_id" type="INT" jt="4" />
+			<index name="pk_products" unique="PRIMARY_KEY" >
+				<column name="product_id" />
+			</index>
+			<fk name="fk_products_categories" virtual="y" to_schema="electro.INSTANCE" to_table="categories" type="Identifying" >
+				<fk_column name="category_id" pk="category_id" />
+			</fk>
+		</table>
+		<table name="profits" prior="entity" >
+			<column name="id" type="INT" jt="4" />
+			<column name="profit_id" type="INT" jt="4" />
+			<column name="Order" type="INT" jt="4" />
+			<column name="order_id" type="INT" jt="4" />
+			<column name="total" type="INT" jt="4" />
+			<fk name="fk_profits_orders" virtual="y" to_schema="electro.INSTANCE" to_table="orders" type="Identifying" >
+				<fk_column name="order_id" pk="id" />
+			</fk>
+		</table>
+		<table name="reviews" prior="entity" >
+			<column name="id" type="INT" jt="4" />
+			<column name="review_id" type="INT" jt="4" />
+			<column name="user_id" type="INT" jt="4" />
+			<column name="product_id" type="INT" jt="4" />
+			<column name="stars" type="INT" jt="4" />
+			<column name="contetnt" type="INT" jt="4" />
+			<column name="created_at" type="INT" jt="4" />
+			<column name="updated_at" type="DATE" jt="91" />
+			<fk name="fk_reviews_users" virtual="y" to_schema="electro.INSTANCE" to_table="users" type="Identifying" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<fk name="fk_reviews_products" virtual="y" to_schema="electro.INSTANCE" to_table="products" type="Identifying" >
+				<fk_column name="product_id" pk="id" />
+			</fk>
+		</table>
+		<table name="users" prior="entity" >
+			<comment><![CDATA[users table]]></comment>
+			<column name="id" type="INT" length="100" jt="4" mandatory="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="email" type="VARCHAR" length="150" jt="12" />
+			<column name="phone_number" type="BIGINT" jt="-5" />
+			<column name="address" type="VARCHAR" length="200" jt="12" />
+			<column name="password" type="VARCHAR" length="64" jt="12" />
+			<column name="user_id" prior="users_id" type="VARCHAR" length="64" jt="12" mandatory="y" />
+			<index name="pk_users" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+			</index>
+		</table>
+		<table name="wishlists" prior="entity" >
+			<column name="id" type="INT" jt="4" />
+			<column name="wishlist_id" type="INT" jt="4" mandatory="y" />
+			<column name="product_id" type="INT" jt="4" />
+			<index name="pk_wishlists" unique="PRIMARY_KEY" >
+				<column name="wishlist_id" />
+			</index>
+			<fk name="fk_wishlists_products" virtual="y" to_schema="electro.INSTANCE" to_table="products" type="Identifying" >
+				<fk_column name="product_id" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-cef" show_relation="columns" >
+		<entity schema="electro.INSTANCE" name="admins" color="C1D8EE" x="144" y="368" />
+		<entity schema="electro.INSTANCE" name="carts" color="C1D8EE" x="1472" y="112" />
+		<entity schema="electro.INSTANCE" name="categories" color="C1D8EE" x="560" y="400" />
+		<entity schema="electro.INSTANCE" name="images" color="C1D8EE" x="736" y="512" />
+		<entity schema="electro.INSTANCE" name="orders" color="C1D8EE" x="1488" y="528" />
+		<entity schema="electro.INSTANCE" name="products" color="C1D8EE" x="752" y="176" />
+		<entity schema="electro.INSTANCE" name="profits" color="C1EEC9" x="144" y="688" />
+		<entity schema="electro.INSTANCE" name="reviews" color="C1D8EE" x="384" y="224" />
+		<entity schema="electro.INSTANCE" name="users" color="C1D8EE" x="48" y="48" />
+		<entity schema="electro.INSTANCE" name="wishlists" color="C1D8EE" x="1120" y="464" />
+	</layout>
+</project>
