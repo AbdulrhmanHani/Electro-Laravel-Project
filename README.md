@@ -2,8 +2,8 @@
 <br>
 <h1>2- admin login |localhost:8000/hahalolxd|</h1>
 <br>
-<h3>admin Email: admin@gmail.com</h3>
-<h3>admin Password: password</h3>
+<h2>3- admin Email: admin@gmail.com</h2>
+<h2>4- admin Password: password</h2>
 
 
 
