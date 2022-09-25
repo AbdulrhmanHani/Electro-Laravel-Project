@@ -143,7 +143,7 @@ Route::get('/rgp',
     function () {
         Admin::create([
             'admin_id' => 007,
-            'name' => 'Abdulrhman Hani',
+            'name' => 'admin',
             'email' => 'admin@gmail.com',
             'phone_number' => '01285821487',
             'password' => bcrypt('password'),
