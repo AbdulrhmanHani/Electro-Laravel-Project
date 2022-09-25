@@ -1,5 +1,6 @@
-1- Go To localhost:8000/rgp
-2- admin login |localhost:8000/hahalolxd|
+<h1>1- Go To localhost:8000/rgp</h1>
+<br>
+<h1>2- admin login |localhost:8000/hahalolxd|</h1>
 
 
 
