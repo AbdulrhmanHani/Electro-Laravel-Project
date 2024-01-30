@@ -59,7 +59,7 @@ Route::post('/edit-profile', [MainController::class, 'editProfile'])->middleware
 
 # ADMIN #
 // Login
-Route::get('/hahalolxd', [AdminController::class, 'login'])->middleware('guest');
+Route::get('/dashboard', [AdminController::class, 'login'])->middleware('guest');
 Route::post('/mlogin', [AdminController::class, 'loginPost'])->middleware('guest');
 // Logout
 Route::get('/mlogout', [AdminController::class, 'logout'])->middleware(['admin']);
