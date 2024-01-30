@@ -1,6 +1,6 @@
-<h1>1- Go To localhost:8000/rgp</h1>
+<h1>1- Go To localhost:8000/setup</h1>
 <br>
-<h1>2- admin login |localhost:8000/hahalolxd|</h1>
+<h1>2- admin login |localhost:8000/dashboard|</h1>
 <br>
 <h2>3- admin Email: admin@gmail.com</h2>
 <h2>4- admin Password: password</h2>
