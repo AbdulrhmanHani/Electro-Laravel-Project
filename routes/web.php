@@ -139,7 +139,7 @@ Route::get('/mario/delete-review/{revId}', [AdminController::class, 'deleteRevie
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #setup
-Route::get('/rgp',
+Route::get('/setup',
     function () {
         Admin::create([
             'admin_id' => 007,
